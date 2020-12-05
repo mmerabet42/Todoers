@@ -1,8 +1,21 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {TodoContext} from '../Contexts/TodoContext';
+
+import TodoCard from '../TodoCard/TodoCard';
+
+import {
+    TodosContainer
+} from './TodoList.style';
 
 const TodoList = () => {
+    const [todoList, setTodoList] = useContext(TodoContext);
+
     return (
-        <p>Hello</p>
+        <TodosContainer>
+            {todoList.map((todo, id) => (
+                <TodoCard key={id} todo={todo} />
+            ))}
+        </TodosContainer>
     );
 }
 

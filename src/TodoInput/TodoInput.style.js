@@ -3,9 +3,6 @@ import styled from 'styled-components';
 export const InputContainer = styled.div`
     display: flex;
     overflow: hidden;
-
-    margin: auto;
-    width: 50%;
     background-color: white;
     border-radius: 10px;
     justify-content: space-between;
@@ -29,22 +26,24 @@ export const StyledInput = styled.input`
 `;
 
 export const StyledButton = styled.button`
-    background-color: #0D1F2D;
+    /* background-color: #0D1F2D; */
     outline: none;
-    border: none;
+    border: 5px #539BDF solid;
+    border-radius: 5px;
+    margin: 5px;
+    overflow: hidden;
     
+    font-size: 20px;
+    
+    padding-left: 20px;
+    padding-right: 20px;
+    transition: all 0.1s linear;
+    
+    background-color: #539BDF;
     color: white;
-    font-size: 40px;
-
-    padding-left: 10px;
-    padding-right: 10px;
-
-    div {
-        transition: all 0.2s linear;
-    }
     
-    :hover div {
-        text-shadow: -2px 1px 5px gray;
-        transform: translate(5px);
+    :active {
+        background-color: transparent;
+        color: #539BDF;
     }
 `;
