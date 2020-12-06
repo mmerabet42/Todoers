@@ -1,22 +1,24 @@
 import React, {useContext} from 'react';
-import {TodoContext} from '../Contexts/TodoContext';
+import { TodosContext } from '../Contexts/TodoContext';
+import { GroupNamesContext } from '../Contexts/GroupNamesContext';
 
-import TodoCard from '../TodoCard/TodoCard';
+import TodoGroup from '../TodoGroup/TodoGroup';
 
 import {
     TodosContainer
 } from './TodoList.style';
 
 const TodoList = () => {
-    const [todoList, setTodoList] = useContext(TodoContext);
+    const [todoList, setTodoList] = useContext(TodosContext);
+    const [groupNames, setGroupNames] = useContext(GroupNamesContext);
 
     return (
         <TodosContainer>
-            {todoList.map((todo, id) => (
-                <TodoCard key={id} todo={todo} />
+            {groupNames.list.map((group, id) => (
+                <TodoGroup key={id} group={group} list={todoList.filter(value => value.group === group)} />
             ))}
         </TodosContainer>
     );
-}
+}   
 
 export default TodoList;

@@ -1,20 +1,27 @@
 import React, { createContext, useState } from 'react';
 import {v4 as uuidv4} from 'uuid';
+import {getDate} from '../Utils/getDate';
 
-export const TodoContext = createContext();
+export const TodosContext = createContext();
 
-export const TodoProvider = props => {
-    const [todoList, setTodoList] = useState([
-        {
-            id: uuidv4(),
-            details: "Todo Example",
-            done: true
-        }
-    ]);
+export const TodosProvider = props => {
+    const [todoList, setTodoList] = useState([{
+        group: "Main",
+        id: uuidv4(),
+        details: "Todo Example",
+        done: false,
+        creationDate: getDate()
+    }, {
+        group: "Other",
+        id: uuidv4(),
+        details: "Todo Example",
+        done: false,
+        creationDate: getDate()
+    }]);
 
     return (
-        <TodoContext.Provider value={[todoList, setTodoList]}>
+        <TodosContext.Provider value={[todoList, setTodoList]}>
             {props.children}
-        </TodoContext.Provider>
+        </TodosContext.Provider>
     );
 };

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const InputContainer = styled.div`
     display: flex;
-    overflow: hidden;
+    /* overflow: hidden; */
     background-color: white;
     border-radius: 10px;
     justify-content: space-between;
@@ -14,6 +14,8 @@ export const StyledInput = styled.input`
     border: none;
     padding: 15px;
     outline: none;
+    border-radius: 10px;
+
 
     font-size: 20px;
     font-family: inherit;
@@ -28,22 +30,53 @@ export const StyledInput = styled.input`
 export const StyledButton = styled.button`
     /* background-color: #0D1F2D; */
     outline: none;
-    border: 5px #539BDF solid;
-    border-radius: 5px;
+    border: 3px #539BDF solid;
+    border-radius: 10px;
     margin: 5px;
-    overflow: hidden;
     
+    font-family: inherit;
+    font-weight: bold;
     font-size: 20px;
     
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
     transition: all 0.1s linear;
     
     background-color: #539BDF;
     color: white;
     
-    :active {
+    :hover {
         background-color: transparent;
         color: #539BDF;
+    }
+
+    :active {
+        background-color: #539BDF;
+        color: white;
+    }
+`;
+
+export const ChangeGroupButton = styled.button`
+    background-color: #0D1F2D;
+    color: white;
+    border-radius: 10px;
+    border: 3px #0D1F2D solid;
+    outline: none;
+
+    font-family: inherit;
+    font-weight: bold;
+
+    margin: 5px;
+
+    transition: all 0.1s linear;
+
+    :hover {
+        background-color: transparent;
+        color: #0D1F2D;
+    }
+
+    :active {
+        background-color: #0D1F2D;
+        color: white;
     }
 `;

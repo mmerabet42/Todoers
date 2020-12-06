@@ -11,6 +11,22 @@ export const CardContainer = styled.div`
     font-size: 20px;
 `;
 
+export const InfoContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+
+    .details {
+        margin-bottom: 0px;
+    }
+
+    .creationDate {
+        color: #b1b1b1;
+        font-size: 15px;
+        margin-top: 0px;
+        margin-bottom: 10px;
+    }
+`;
+
 export const SelectorContainer = styled.div`
     display: flex;
     justify-content: space-between;
@@ -36,9 +52,14 @@ export const RemoveButton = styled.button`
     
     transition: all 0.1s linear;
     
-    :active {
+    :hover {
         background-color: transparent;
         color: #FF5A5F;
+    }
+
+    :active {
+        background-color: #FF5A5F;
+        color: white;
     }
 `;
 
@@ -63,6 +84,10 @@ export const DoneCheckbox = styled.button`
     color: ${props => props.done ? "white" : "#35BECE"};
 
     transition: all 0.1s linear;
+
+    :hover {
+        font-size: 30px;
+    }
 
     :active {
         background-color: ${props => !props.done ? "#35BECE" : "transparent"};
