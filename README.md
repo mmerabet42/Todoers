@@ -5,7 +5,7 @@ Todoers is a web project, that is supposed to get more and more complex. Started
 ## Installation
 
 Before trying anything, you first need to install [nodejs](https://nodejs.org/en/).
-- Download the project, either by using git (if you know git, you definetely know how to do this part), we will focus on the zip way.
+- Download the project, either by using git (if you know git, you definitely know how to do this part), we will focus on the zip way.
 - Extract the file, and copy the path of the extracted folder.
 - Open the Windows PowerShell (you may need to open it with administrator rights).
 - Run ```cd <path to the project>```
