@@ -1,16 +1,41 @@
 import React, { useContext } from 'react';
 
 import {GroupNamesContext} from '../Contexts/GroupNamesContext';
+import AddGroupInput from '../AddGroupInput/AddGroupInput';
 
 import {
     Relativer,
-    MenuContainer
+    MenuContainer,
+    RemoveButton
 } from './GroupSelectorMenu.style';
+import { NotificationsContext } from '../Contexts/NotificationsContext';
 
 const GroupSelectorMenu = ({setOpen}) => {
-    const [groupNames, setGroupNames] = useContext(GroupNamesContext);
+    const [groupNames, setGroupNames] = React.useContext(GroupNamesContext);
+    const [{}, {}, addNotification] = React.useContext(NotificationsContext);
 
-    const handleGroupChange = newName => {
+    let orderCall = false;
+    const handleGroup = (newName, from) => {
+        if (orderCall === true) {
+            orderCall = false;
+            return;
+        }
+        if (from === "remove") {
+            orderCall = true;
+
+            addNotification("valid", `'${newName}' group has been deleted.`);
+            setGroupNames(prev => {
+                const newList = prev.list.filter(value => value !== newName);
+                
+                return {
+                    current: (prev.current === newName ? newList[0] : prev.current),
+                    list: newList
+                };
+            });
+            return;
+        }
+
+        addNotification("valid", `'${newName}' is now the default group`);
         setGroupNames({
             current: newName,
             list: groupNames.list
@@ -21,16 +46,19 @@ const GroupSelectorMenu = ({setOpen}) => {
     return (
         <Relativer>
             <MenuContainer>
+                <p>Select default group</p>
                 {groupNames.list.map((group, id) => (
                     <div key={id} className="groupNameContainer">
                         <p
                             className={group === groupNames.current ? "selectedGroup" : "groupName"}
-                            onClick={() => handleGroupChange(group)}
+                            onClick={() => handleGroup(group, "change")}
                         >
                             {group}
+                            <RemoveButton onClick={() => handleGroup(group, "remove")}>X</RemoveButton>
                         </p>
                     </div>
                 ))}
+                <AddGroupInput />
             </MenuContainer>
         </Relativer>
     );

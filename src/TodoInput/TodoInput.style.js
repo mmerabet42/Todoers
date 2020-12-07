@@ -31,8 +31,12 @@ export const StyledButton = styled.button`
     /* background-color: #0D1F2D; */
     outline: none;
     border: 3px #539BDF solid;
+    border-right: none;
     border-radius: 10px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
     margin: 5px;
+    margin-right: 0px;
     
     font-family: inherit;
     font-weight: bold;
@@ -57,26 +61,33 @@ export const StyledButton = styled.button`
 `;
 
 export const ChangeGroupButton = styled.button`
-    background-color: #0D1F2D;
-    color: white;
-    border-radius: 10px;
-    border: 3px #0D1F2D solid;
     outline: none;
-
+    border: 3px #539BDF solid;
+    border-left: none;
+    border-radius: 10px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    margin: 5px;
+    margin-left: 0px;
+    
     font-family: inherit;
     font-weight: bold;
-
-    margin: 5px;
-
+    font-size: 20px;
+    
+    padding-left: 10px;
+    padding-right: 10px;
     transition: all 0.1s linear;
-
+    
+    background-color: #539BDF;
+    color: white;
+    
     :hover {
         background-color: transparent;
-        color: #0D1F2D;
+        color: #539BDF;
     }
 
     :active {
-        background-color: #0D1F2D;
+        background-color: #539BDF;
         color: white;
     }
 `;

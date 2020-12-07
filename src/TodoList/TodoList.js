@@ -15,9 +15,9 @@ const TodoList = () => {
     return (
         <TodosContainer>
             {groupNames.list.map((group, id) => (
-                <TodoGroup key={id} group={group} list={todoList.filter(value => value.group === group)} />
+                <TodoGroup key={id} isCurrent={groupNames.current === group} group={group} list={todoList.filter(value => value.group === group)} />
             ))}
-        </TodosContainer>
+        </TodosContainer>   
     );
 }   
 

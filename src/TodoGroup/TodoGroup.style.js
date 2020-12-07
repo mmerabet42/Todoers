@@ -3,11 +3,20 @@ import styled from 'styled-components';
 export const GroupTitle = styled.p`
     font-size: 20px;
     margin: 0px;
+    max-width: 50%;
+    font-weight: bold;
+
+    text-decoration: ${props => props.isCurrent ? "underline" : "none"};
+`;
+
+export const Percentage = styled.p`
+    font-size: 15px;
 `;
 
 export const TitleContainer = styled.div`
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     margin: 20px;
     margin-bottom: 10px;

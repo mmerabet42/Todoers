@@ -12,3 +12,9 @@ body {
     font-family: 'Quicksand';
     background-color: #539BDF;
 }
+
+html, body, #root {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}

@@ -11,16 +11,10 @@ export const TodosProvider = props => {
         details: "Todo Example",
         done: false,
         creationDate: getDate()
-    }, {
-        group: "Other",
-        id: uuidv4(),
-        details: "Todo Example",
-        done: false,
-        creationDate: getDate()
     }]);
 
     return (
-        <TodosContext.Provider value={[todoList, setTodoList]}>
+        <TodosContext.Provider value={[todoList, setTodoList]} style={{height: "100%"}}>
             {props.children}
         </TodosContext.Provider>
     );

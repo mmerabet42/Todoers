@@ -11,19 +11,24 @@ import {
   Separator
 } from './App.style';
 import { GroupNamesProvider } from '../Contexts/GroupNamesContext';
+import { NotificationsProvider } from '../Contexts/NotificationsContext';
+import Notifications from '../Notifications/Notifications';
 
 const App = () => {
   return (
-    <TodosProvider>
-      <BodyContainer>
-        <Topbar />
-        <GroupNamesProvider>
-          <TodoInput />
-          <Separator />
-          <TodoList />
-        </GroupNamesProvider>
-      </BodyContainer>
-    </TodosProvider>
+    <NotificationsProvider>
+      <TodosProvider>
+        <BodyContainer>
+          <Topbar />
+          <GroupNamesProvider>
+            <TodoInput />
+            <Separator />
+            <TodoList />
+          </GroupNamesProvider>
+          <Notifications />
+        </BodyContainer>
+      </TodosProvider>
+    </NotificationsProvider>
   );
 }
 

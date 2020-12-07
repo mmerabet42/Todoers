@@ -9,6 +9,16 @@ export const CardContainer = styled.div`
     margin-left: 30px;
     margin-right: 30px;
     font-size: 20px;
+
+    transition: all 0.1s linear;
+
+    :hover {
+        transform: scale(0.99);
+    }
+
+    :active {
+        transform: scale(1.01);
+    }
 `;
 
 export const InfoContainer = styled.div`

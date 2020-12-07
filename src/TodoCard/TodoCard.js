@@ -1,4 +1,5 @@
 import React, {useContext} from 'react';
+import { NotificationsContext } from '../Contexts/NotificationsContext';
 
 import {TodosContext} from '../Contexts/TodoContext';
 
@@ -13,15 +14,18 @@ import {
 
 const TodoCard = ({todo}) => {
     const [todoList, setTodoList] = useContext(TodosContext);
+    const [notifications, setNotification, addNotification] = React.useContext(NotificationsContext);
 
     const handleRemove = () => {
+        addNotification("valid", `Todo '${todo.details}' has been deleted.`);
         setTodoList(prev => prev.filter(value => value.id !== todo.id));
     }
 
-    const handleCheck = async () => {
+    const handleCheck = () => {
         const newList = [...todoList];
         const todoCopy = newList.find(value => value.id === todo.id);
         todoCopy.done = !todoCopy.done;
+        addNotification("valid", `Todo '${todo.details}' done status has changed to '${todoCopy.done}'.`);
         setTodoList(newList);
     }
 

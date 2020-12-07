@@ -9,23 +9,37 @@ import {
     InputContainer,
     StyledInput,
     StyledButton,
+    Relativer,
     ChangeGroupButton
 } from './TodoInput.style';
 
 import GroupSelectorMenu from '../GroupSelectorMenu/GroupSelectorMenu';
+import { NotificationsContext } from '../Contexts/NotificationsContext';
+import { CSSTransition } from 'react-css-transition';
 
 const TodoInput = () => {
-    const [todoList, setTodoList] = useContext(TodosContext);
-    const [groupNames, setGroupNames] = useContext(GroupNamesContext);
+    const [todoList, setTodoList] = React.useContext(TodosContext);
+    const [groupNames, setGroupNames] = React.useContext(GroupNamesContext);
+    const [{}, {}, addNotification] = React.useContext(NotificationsContext);
 
     const [open, setOpen] = useState(false);
 
     const inputNameRef = useRef();
 
+    const onKeyDown = (e) => {
+        if (e.key === 'Enter')
+            addTodo();
+    }
+
     const addTodo = async () => {
         if (inputNameRef.current.value === "")
             return;
+        else if (groupNames.current === undefined) {
+            addNotification("error", "You must add groups before adding todos.");
+            return;
+        }
 
+        addNotification("valid", `Todo '${inputNameRef.current.value}' has been added to group '${groupNames.current}'.`);
         await setTodoList(prev => [{
             group: groupNames.current,
             id: uuidv4(),
@@ -38,16 +52,15 @@ const TodoInput = () => {
 
     return (
         <InputContainer>
-            <StyledInput className="todo-input" placeholder="New Todo..." ref={inputNameRef} />
+            <StyledInput className="todo-input" placeholder="New Todo..." ref={inputNameRef} onKeyDown={onKeyDown} />
             <StyledButton onClick={addTodo}>
-                Add
+                New
             </StyledButton>
             <ChangeGroupButton onClick={() => setOpen(!open)}>
-                Select Group
+                ▼
             </ChangeGroupButton>
             {open && <GroupSelectorMenu setOpen={setOpen} />}
-        </InputContainer>
-            
+        </InputContainer> 
     );
 };
 
