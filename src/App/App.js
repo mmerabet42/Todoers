@@ -8,7 +8,7 @@ import { TodosProvider } from '../Contexts/TodoContext';
 
 import {
   BodyContainer,
-  Separator
+  TodoBody
 } from './App.style';
 import { GroupNamesProvider } from '../Contexts/GroupNamesContext';
 import { NotificationsProvider } from '../Contexts/NotificationsContext';
@@ -21,9 +21,10 @@ const App = () => {
         <BodyContainer>
           <Topbar />
           <GroupNamesProvider>
-            <TodoInput />
-            <Separator />
-            <TodoList />
+            <TodoBody>
+              <TodoInput />
+              <TodoList />
+            </TodoBody>
           </GroupNamesProvider>
           <Notifications />
         </BodyContainer>

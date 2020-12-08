@@ -23,6 +23,7 @@ export const NameInput = styled.input`
 `;
 
 export const NewGroupButton = styled.button`
+    cursor: pointer;
     outline: none;
     border: 3px #539BDF solid;
     background-color: #539BDF;

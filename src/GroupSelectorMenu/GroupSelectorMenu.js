@@ -6,12 +6,14 @@ import AddGroupInput from '../AddGroupInput/AddGroupInput';
 import {
     Relativer,
     MenuContainer,
-    RemoveButton
+    RemoveButton,
 } from './GroupSelectorMenu.style';
 import { NotificationsContext } from '../Contexts/NotificationsContext';
+import { TodosContext } from '../Contexts/TodoContext';
 
 const GroupSelectorMenu = ({setOpen}) => {
     const [groupNames, setGroupNames] = React.useContext(GroupNamesContext);
+    const [{}, setTodos] = React.useContext(TodosContext);
     const [{}, {}, addNotification] = React.useContext(NotificationsContext);
 
     let orderCall = false;
@@ -32,6 +34,7 @@ const GroupSelectorMenu = ({setOpen}) => {
                     list: newList
                 };
             });
+            setTodos(prev => prev.filter(value => value.group !== newName));
             return;
         }
 

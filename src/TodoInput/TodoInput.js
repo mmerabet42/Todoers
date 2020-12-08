@@ -12,6 +12,7 @@ import {
     Relativer,
     ChangeGroupButton
 } from './TodoInput.style';
+import ShadowMask from '../ShadowMask/ShadowMask';
 
 import GroupSelectorMenu from '../GroupSelectorMenu/GroupSelectorMenu';
 import { NotificationsContext } from '../Contexts/NotificationsContext';
@@ -35,13 +36,14 @@ const TodoInput = () => {
         if (inputNameRef.current.value === "")
             return;
         else if (groupNames.current === undefined) {
-            addNotification("error", "You must add groups before adding todos.");
+            addNotification("error", "Cannot add todo because there are no selected groups");
             return;
         }
 
         addNotification("valid", `Todo '${inputNameRef.current.value}' has been added to group '${groupNames.current}'.`);
         await setTodoList(prev => [{
             group: groupNames.current,
+            connectedGroup: null,
             id: uuidv4(),
             details: inputNameRef.current.value,
             done: false,
@@ -59,7 +61,9 @@ const TodoInput = () => {
             <ChangeGroupButton onClick={() => setOpen(!open)}>
                 ▼
             </ChangeGroupButton>
-            {open && <GroupSelectorMenu setOpen={setOpen} />}
+            {open && <ShadowMask onClick={() => setOpen(false)}>
+                <GroupSelectorMenu setOpen={setOpen} />
+            </ShadowMask>}
         </InputContainer> 
     );
 };

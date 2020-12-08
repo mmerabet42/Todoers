@@ -1,12 +1,15 @@
 import styled from 'styled-components';
 
 export const InputContainer = styled.div`
+    flex: 0 1 auto;
     display: flex;
     /* overflow: hidden; */
     background-color: white;
     border-radius: 10px;
     justify-content: space-between;
     align-items: stretch;
+
+    margin-bottom: 20px;
 `;
 
 export const StyledInput = styled.input`
@@ -29,6 +32,7 @@ export const StyledInput = styled.input`
 
 export const StyledButton = styled.button`
     /* background-color: #0D1F2D; */
+    cursor: pointer;
     outline: none;
     border: 3px #539BDF solid;
     border-right: none;
@@ -61,6 +65,7 @@ export const StyledButton = styled.button`
 `;
 
 export const ChangeGroupButton = styled.button`
+    cursor: pointer;
     outline: none;
     border: 3px #539BDF solid;
     border-left: none;

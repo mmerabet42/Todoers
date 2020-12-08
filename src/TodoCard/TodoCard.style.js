@@ -17,16 +17,19 @@ export const CardContainer = styled.div`
     }
 
     :active {
-        transform: scale(1.01);
+        transform: scale(0.98);
     }
 `;
 
 export const InfoContainer = styled.div`
     display: flex;
     flex-direction: column;
+    /* overflow: hidden; */
+    cursor: pointer;
 
     .details {
         margin-bottom: 0px;
+        word-break: break-all;
     }
 
     .creationDate {
@@ -40,12 +43,19 @@ export const InfoContainer = styled.div`
 export const SelectorContainer = styled.div`
     display: flex;
     justify-content: space-between;
+    align-items: center;
+
+    p {
+        font-size: 15px;
+        margin: 10px;
+    }
 `;
 
 export const RemoveButton = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 
     outline: none;
     border: 3px #FF5A5F solid;
@@ -78,6 +88,7 @@ export const DoneCheckbox = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 
     outline: none;
     border: 3px #35BECE solid;

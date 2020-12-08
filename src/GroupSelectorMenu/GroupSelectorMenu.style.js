@@ -25,7 +25,8 @@ export const MenuContainer = styled.div`
         display: flex;
         flex-direction: row;
         justify-content: center;
-        /* text-align: center; */
+        align-items: center;
+        cursor: pointer;
         
         font-size: 20px;
         width: 100%;
@@ -42,6 +43,10 @@ export const MenuContainer = styled.div`
         }
     }
 
+    .selectedGroup, .groupName {
+        word-break: break-all;
+    }
+
     .selectedGroup {
         background-color: #35BECE;
     }
@@ -56,6 +61,7 @@ export const RemoveButton = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 
     outline: none;
     border: 3px #FF5A5F solid;

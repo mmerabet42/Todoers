@@ -6,9 +6,11 @@ export const TodosContext = createContext();
 
 export const TodosProvider = props => {
     const [todoList, setTodoList] = useState([{
-        group: "Main",
+        group: "Example",
+        connectedGroup: null,
         id: uuidv4(),
         details: "Todo Example",
+        description: "",
         done: false,
         creationDate: getDate()
     }]);

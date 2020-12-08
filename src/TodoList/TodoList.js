@@ -5,18 +5,19 @@ import { GroupNamesContext } from '../Contexts/GroupNamesContext';
 import TodoGroup from '../TodoGroup/TodoGroup';
 
 import {
-    TodosContainer
+    TodosContainer,
+    NoTodos
 } from './TodoList.style';
 
 const TodoList = () => {
-    const [todoList, setTodoList] = useContext(TodosContext);
-    const [groupNames, setGroupNames] = useContext(GroupNamesContext);
+    const [todoList] = useContext(TodosContext);
+    const [groupNames] = useContext(GroupNamesContext);
 
     return (
         <TodosContainer>
-            {groupNames.list.map((group, id) => (
+            {groupNames.list.length ? groupNames.list.map((group, id) => (
                 <TodoGroup key={id} isCurrent={groupNames.current === group} group={group} list={todoList.filter(value => value.group === group)} />
-            ))}
+            )) : <NoTodos><p>There are no todos yet.</p></NoTodos>}
         </TodosContainer>   
     );
 }   

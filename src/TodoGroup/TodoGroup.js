@@ -9,18 +9,23 @@ import {
 } from './TodoGroup.style';
 
 import TodoCard from '../TodoCard/TodoCard';
+import { GroupNamesContext } from '../Contexts/GroupNamesContext';
 
 
 const TodoGroup = ({isCurrent, group, list}) => {
-    const todosDone = (list.filter(value => value.done).length / (list.length ? list.length : 1)) * 100;
+    const [show, setShow] = React.useState(true);
+    const [{}, {}, groupPercentage] = React.useContext(GroupNamesContext);
 
     return (
         <div>
-            <TitleContainer>
-                <GroupTitle isCurrent={isCurrent}>{group}</GroupTitle>
-                <Percentage>{todosDone.toFixed(1)}%</Percentage>
+            <TitleContainer onClick={() => setShow(!show)} show={show}>
+                <div className="nameContainer">
+                    <GroupTitle isCurrent={isCurrent}>{group}</GroupTitle>
+                    <p className="arrowhead">⮟</p>
+                </div>
+                <Percentage>{groupPercentage(group)}%</Percentage>
             </TitleContainer>
-            {list.map((todo, id) => (
+            {show && list.map((todo, id) => (
                 <TodoCard key={id} todo={todo}/>
             ))}
         </div>

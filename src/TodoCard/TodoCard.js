@@ -1,7 +1,8 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import { NotificationsContext } from '../Contexts/NotificationsContext';
 
-import {TodosContext} from '../Contexts/TodoContext';
+import { TodosContext } from '../Contexts/TodoContext';
+import TodoMenu from '../TodoMenu/TodoMenu';
 
 import {
     CardContainer,
@@ -9,12 +10,15 @@ import {
     RemoveButton,
     DoneCheckbox,
     InfoContainer,
-    CardDate
 } from './TodoCard.style';
+import ShadowMask from '../ShadowMask/ShadowMask';
+import { GroupNamesContext } from '../Contexts/GroupNamesContext';
 
 const TodoCard = ({todo}) => {
-    const [todoList, setTodoList] = useContext(TodosContext);
-    const [notifications, setNotification, addNotification] = React.useContext(NotificationsContext);
+    const [todoList, setTodoList] = React.useContext(TodosContext);
+    const [{}, {}, getPercentage] = React.useContext(GroupNamesContext);
+    const [{}, {}, addNotification] = React.useContext(NotificationsContext);
+    const [openMenu, setOpenMenu] = React.useState(false);
 
     const handleRemove = () => {
         addNotification("valid", `Todo '${todo.details}' has been deleted.`);
@@ -30,16 +34,24 @@ const TodoCard = ({todo}) => {
     }
 
     return (
-        <CardContainer>
-            <InfoContainer>
-                <p className="details">{todo.details}</p>
-                <p className="creationDate">{todo.creationDate}</p>
-            </InfoContainer>
-            <SelectorContainer>
-                <DoneCheckbox onClick={handleCheck} done={todo.done}>✓</DoneCheckbox>
-                <RemoveButton onClick={handleRemove}>✖</RemoveButton>
-            </SelectorContainer>
-        </CardContainer>
+        <>
+            <CardContainer>
+                <InfoContainer onClick={() => setOpenMenu(!openMenu)}>
+                    <p className="details">{todo.details}</p>
+                    <p className="creationDate">{todo.creationDate}</p>
+                </InfoContainer>
+                <SelectorContainer>
+                    {todo.connectedGroup !== null
+                        ? (<p>{todo.connectedGroup} • {getPercentage(todo.connectedGroup)}%</p>)
+                        : (<DoneCheckbox onClick={handleCheck} done={todo.done}>✓</DoneCheckbox>)
+                    }
+                    <RemoveButton onClick={handleRemove}>✖</RemoveButton>
+                </SelectorContainer>
+            </CardContainer>
+            {openMenu && <ShadowMask onClick={() => setOpenMenu(false)}>
+                <TodoMenu todo={todo} setOpenMenu={setOpenMenu} />
+            </ShadowMask> }
+        </>
     );
 }
 
