@@ -7,7 +7,7 @@ import {
 } from './Notifications.style';
 
 const Notifications = () => {
-    const [notifications, setNotifications] = React.useContext(NotificationsContext);
+    const { notifications } = React.useContext(NotificationsContext);
 
     return (
         <NotificationsContainer>

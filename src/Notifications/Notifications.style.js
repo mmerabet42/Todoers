@@ -20,7 +20,7 @@ export const NotificationsContainer = styled.div`
     flex-direction: column-reverse;
     
     position: fixed;
-    right: 50px;
+    left: 50px;
     bottom: 50px;
     `;
 

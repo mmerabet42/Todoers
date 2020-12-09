@@ -4,7 +4,7 @@ import {v4 as uuidv4} from 'uuid';
 export const NotificationsContext = React.createContext();
 
 export const NotificationsProvider = (props) => {
-    const [notifications, setNotifications] = React.useState([]);
+    const [ notifications, setNotifications ] = React.useState([]);
 
     const addNotification = async (level, message) => {
         const id = uuidv4();
@@ -23,7 +23,7 @@ export const NotificationsProvider = (props) => {
     }
 
     return (
-        <NotificationsContext.Provider value={[notifications, setNotifications, addNotification]}>
+        <NotificationsContext.Provider value={{notifications, setNotifications, addNotification}}>
             {props.children}
         </NotificationsContext.Provider>
     );

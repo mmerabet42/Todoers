@@ -12,11 +12,11 @@ import {
 } from './TodoMenu.style';
 
 const TodoMenu = ({todo, setOpenMenu}) => {
-    const [linkCheck, setLinkCheck] = React.useState(todo.connectedGroup !== null);
+    const [ linkCheck, setLinkCheck ] = React.useState(todo.connectedGroup !== null);
 
-    const [{}, setTodosList] = React.useContext(TodosContext);
-    const [groupNames] = React.useContext(GroupNamesContext);
-    const [{}, {}, addNotification] = React.useContext(NotificationsContext);
+    const { setTodoList } = React.useContext(TodosContext);
+    const { groupNames, getGroupById } = React.useContext(GroupNamesContext);
+    const { addNotification } = React.useContext(NotificationsContext);
 
     const nameRef = React.useRef();
     const descriptionRef = React.useRef();
@@ -26,11 +26,11 @@ const TodoMenu = ({todo, setOpenMenu}) => {
         const newName = nameRef.current.value === "" ? todo.details : nameRef.current.value;
 
         addNotification("valid", `Changes made to '${newName}' has been saved.`);
-        setTodosList(prev => {
+        setTodoList(prev => {
             const foundTodo = prev.find(value => value.id === todo.id);
             foundTodo.details = newName;
             foundTodo.description = descriptionRef.current.value;
-            if (linkCheck && linkGroupRef.current.value && linkGroupRef.current.value !== "")
+            if (linkCheck && linkGroupRef.current.value)
                 foundTodo.connectedGroup = linkGroupRef.current.value;
             else
                 foundTodo.connectedGroup = null;
@@ -42,7 +42,7 @@ const TodoMenu = ({todo, setOpenMenu}) => {
         <MenuContainer>
             <MenuHeader>
                 <div className="names">
-                    <p className="groupName">{todo.group}</p>
+                    <p className="groupName">{getGroupById(todo.group).name}</p>
                     <p className="details">/{todo.details}</p>
                 </div>
                 <button className="closeButton" onClick={() => setOpenMenu(false)}>✖</button>
@@ -63,9 +63,9 @@ const TodoMenu = ({todo, setOpenMenu}) => {
                             <LinkCheckbox checked={linkCheck} onClick={() => setLinkCheck(!linkCheck)}><p>✓</p></LinkCheckbox>
                             <select ref={linkGroupRef} value={todo.connectedGroup} disabled={!linkCheck}>
                                 {groupNames.list.map((group, id) => {
-                                    if (todo.group === group)
-                                        return;
-                                    return <option key={id} value={group}>{group}</option>
+                                    if (todo.group === group.id)
+                                        return null;
+                                    return <option key={id} value={group.id}>{group.name}</option>
                                 })}
                             </select>
                         </div>

@@ -1,24 +1,27 @@
 import React from 'react';
-import TodoList from '../TodoList/TodoList';
+
 import { TodosContext } from './TodoContext';
+
+import { groupContext } from '../DefaultValues/Default';
 
 export const GroupNamesContext = React.createContext();
 
 export const GroupNamesProvider = props => {
-    const [groupNames, setGroupNames] = React.useState({
-        current: "Example",
-        list: ["Example"]
-    });
-    const [todos] = React.useContext(TodosContext);
+    const [ groupNames, setGroupNames ] = React.useState(groupContext);
+    const { todoList } = React.useContext(TodosContext);
 
-    const groupPercentage = (groupName) => {
-        const todoList = todos.filter(value => value.group === groupName);
+    const groupPercentage = (groupId) => {
+        const list = todoList.filter(value => value.group === groupId);
         
-        return ((todoList.filter(value => value.done).length / (todoList.length ? todoList.length : 1)) * 100).toFixed(1);
+        return ((list.filter(value => value.done && !value.connectedGroup).length / (list.length ? list.length : 1)) * 100).toFixed(1);
+    }
+
+    const getGroupById = (groupId) => {
+        return groupNames.list.find(value => value.id === groupId);
     }
 
     return (
-        <GroupNamesContext.Provider value={[groupNames, setGroupNames, groupPercentage]} style={{flex: "1 1 auto"}}>
+        <GroupNamesContext.Provider value={{groupNames, setGroupNames, groupPercentage, getGroupById}} style={{flex: "1 1 auto"}}>
             {props.children}
         </GroupNamesContext.Provider>
     );

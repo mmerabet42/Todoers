@@ -47,7 +47,11 @@ export const SelectorContainer = styled.div`
 
     p {
         font-size: 15px;
-        margin: 10px;
+        /* margin: 10px; */
+        padding: 10px;
+        color: white;
+        background-color: #35BECE;
+        border-radius: 10px;
     }
 `;
 

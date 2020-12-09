@@ -3,8 +3,6 @@ import React from 'react';
 import {
     GroupTitle,
     TitleContainer,
-    Separator,
-    ExpandArrow,
     Percentage
 } from './TodoGroup.style';
 
@@ -13,17 +11,17 @@ import { GroupNamesContext } from '../Contexts/GroupNamesContext';
 
 
 const TodoGroup = ({isCurrent, group, list}) => {
-    const [show, setShow] = React.useState(true);
-    const [{}, {}, groupPercentage] = React.useContext(GroupNamesContext);
+    const [ show, setShow ] = React.useState(true);
+    const { groupPercentage } = React.useContext(GroupNamesContext);
 
     return (
         <div>
             <TitleContainer onClick={() => setShow(!show)} show={show}>
                 <div className="nameContainer">
-                    <GroupTitle isCurrent={isCurrent}>{group}</GroupTitle>
+                    <GroupTitle isCurrent={isCurrent}>{group.name}</GroupTitle>
                     <p className="arrowhead">⮟</p>
                 </div>
-                <Percentage>{groupPercentage(group)}%</Percentage>
+                <Percentage>{groupPercentage(group.id)}%</Percentage>
             </TitleContainer>
             {show && list.map((todo, id) => (
                 <TodoCard key={id} todo={todo}/>

@@ -10,13 +10,13 @@ import {
 } from './TodoList.style';
 
 const TodoList = () => {
-    const [todoList] = useContext(TodosContext);
-    const [groupNames] = useContext(GroupNamesContext);
+    const { todoList } = useContext(TodosContext);
+    const { groupNames } = useContext(GroupNamesContext);
 
     return (
         <TodosContainer>
             {groupNames.list.length ? groupNames.list.map((group, id) => (
-                <TodoGroup key={id} isCurrent={groupNames.current === group} group={group} list={todoList.filter(value => value.group === group)} />
+                <TodoGroup key={id} isCurrent={groupNames.current === group.id} group={group} list={todoList.filter(value => value.group === group.id)} />
             )) : <NoTodos><p>There are no todos yet.</p></NoTodos>}
         </TodosContainer>   
     );

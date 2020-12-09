@@ -4,12 +4,15 @@ export const TodosContainer = styled.div`
     flex: 1 1 auto;
     background-color: white;
     border-radius: 10px;
+    overflow: hidden;
     overflow-y: scroll;
     margin-bottom: 20px;
 
     ::-webkit-scrollbar {
-        width: 0px;
-        height: 0px;
+        width: 5px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background-color: gray;
     }
 `;
 

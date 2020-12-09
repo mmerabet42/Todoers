@@ -1,4 +1,5 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { GroupNamesContext } from '../Contexts/GroupNamesContext';
 import { NotificationsContext } from '../Contexts/NotificationsContext';
 
@@ -9,19 +10,28 @@ import {
 } from './AddGroupInput.style';
 
 const AddGroupInput = () => {
-    const [groupNames, setGroupNames] = React.useContext(GroupNamesContext);
-    const [{}, {}, addNotification] = React.useContext(NotificationsContext);
+    const { groupNames, setGroupNames } = React.useContext(GroupNamesContext);
+    const { addNotification } = React.useContext(NotificationsContext);
     const inputRef = React.useRef();
 
     const addGroup = () => {
-        if (inputRef.current.value === "" || groupNames.list.includes(inputRef.current.value))
+        if (inputRef.current.value === "") {
+            addNotification("error", "Group name cannot be empty.");
             return;
-        
-        const value = inputRef.current.value;
+        }
+        else if (groupNames.list.find(value => value.name === inputRef.current.value)) {
+            addNotification("error", `Group '${inputRef.current.value}' already exists.`);
+            return;
+        }
+
+        const value = {
+            name: inputRef.current.value,
+            id: uuidv4()
+        };
         addNotification("valid", `Group '${value}' has been added.`);
         setGroupNames(prev => {
             const newList = [...prev.list, value];
-            const newCurrent = (prev.list.length ? prev.current : value);
+            const newCurrent = (prev.list.length ? prev.current : value.id);
             inputRef.current.value = ""; 
 
             return {

@@ -15,10 +15,10 @@ import ShadowMask from '../ShadowMask/ShadowMask';
 import { GroupNamesContext } from '../Contexts/GroupNamesContext';
 
 const TodoCard = ({todo}) => {
-    const [todoList, setTodoList] = React.useContext(TodosContext);
-    const [{}, {}, getPercentage] = React.useContext(GroupNamesContext);
-    const [{}, {}, addNotification] = React.useContext(NotificationsContext);
-    const [openMenu, setOpenMenu] = React.useState(false);
+    const { todoList, setTodoList } = React.useContext(TodosContext);
+    const { groupPercentage, getGroupById } = React.useContext(GroupNamesContext);
+    const { addNotification } = React.useContext(NotificationsContext);
+    const [ openMenu, setOpenMenu ] = React.useState(false);
 
     const handleRemove = () => {
         addNotification("valid", `Todo '${todo.details}' has been deleted.`);
@@ -33,6 +33,8 @@ const TodoCard = ({todo}) => {
         setTodoList(newList);
     }
 
+    const group = getGroupById(todo.connectedGroup);
+
     return (
         <>
             <CardContainer>
@@ -41,8 +43,8 @@ const TodoCard = ({todo}) => {
                     <p className="creationDate">{todo.creationDate}</p>
                 </InfoContainer>
                 <SelectorContainer>
-                    {todo.connectedGroup !== null
-                        ? (<p>{todo.connectedGroup} • {getPercentage(todo.connectedGroup)}%</p>)
+                    {group
+                        ? (<p>{group.name} • {groupPercentage(group.id)}%</p>)
                         : (<DoneCheckbox onClick={handleCheck} done={todo.done}>✓</DoneCheckbox>)
                     }
                     <RemoveButton onClick={handleRemove}>✖</RemoveButton>

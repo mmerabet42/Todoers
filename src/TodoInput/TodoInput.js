@@ -1,4 +1,4 @@
-import React, {useContext, useRef, useState} from 'react';
+import React from 'react';
 import {v4 as uuidv4} from 'uuid';
 import {getDate} from '../Utils/getDate';
 
@@ -9,7 +9,6 @@ import {
     InputContainer,
     StyledInput,
     StyledButton,
-    Relativer,
     ChangeGroupButton
 } from './TodoInput.style';
 import ShadowMask from '../ShadowMask/ShadowMask';
@@ -19,13 +18,13 @@ import { NotificationsContext } from '../Contexts/NotificationsContext';
 import { CSSTransition } from 'react-css-transition';
 
 const TodoInput = () => {
-    const [todoList, setTodoList] = React.useContext(TodosContext);
-    const [groupNames, setGroupNames] = React.useContext(GroupNamesContext);
-    const [{}, {}, addNotification] = React.useContext(NotificationsContext);
+    const { setTodoList } = React.useContext(TodosContext);
+    const { groupNames, getGroupById } = React.useContext(GroupNamesContext);
+    const { addNotification } = React.useContext(NotificationsContext);
 
-    const [open, setOpen] = useState(false);
+    const [ open, setOpen ] = React.useState(false);
 
-    const inputNameRef = useRef();
+    const inputNameRef = React.useRef();
 
     const onKeyDown = (e) => {
         if (e.key === 'Enter')
@@ -33,14 +32,16 @@ const TodoInput = () => {
     }
 
     const addTodo = async () => {
-        if (inputNameRef.current.value === "")
+        if (inputNameRef.current.value === "") {
+            addNotification("error", "Todo name cannot be empty.");
             return;
+        }
         else if (groupNames.current === undefined) {
-            addNotification("error", "Cannot add todo because there are no selected groups");
+            addNotification("error", "You must select a default group before adding todos.");
             return;
         }
 
-        addNotification("valid", `Todo '${inputNameRef.current.value}' has been added to group '${groupNames.current}'.`);
+        addNotification("valid", `Todo '${inputNameRef.current.value}' has been added to group '${getGroupById(groupNames.current).name}'.`);
         await setTodoList(prev => [{
             group: groupNames.current,
             connectedGroup: null,
