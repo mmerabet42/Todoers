@@ -48,7 +48,7 @@ export const MenuContainer = styled.div`
 export const GroupName = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
         
     font-size: 20px;

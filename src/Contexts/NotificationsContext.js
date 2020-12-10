@@ -6,7 +6,7 @@ export const NotificationsContext = React.createContext();
 export const NotificationsProvider = (props) => {
     const [ notifications, setNotifications ] = React.useState([]);
 
-    const addNotification = async (level, message) => {
+    const addNotification = (level, message) => {
         const id = uuidv4();
         const timeoutId = setTimeout(() => setNotifications(prev => prev.filter(value => value.id !== id)), 4000);
 
@@ -22,8 +22,18 @@ export const NotificationsProvider = (props) => {
         });
     }
 
+    const removeNotification = (notificationId) => {
+        setNotifications(prev => prev.filter(value => {
+            if (value.id === notificationId) {
+                clearTimeout(value.timeoutId);
+                return false;
+            }
+            return true;
+        }));
+    }
+
     return (
-        <NotificationsContext.Provider value={{notifications, setNotifications, addNotification}}>
+        <NotificationsContext.Provider value={{notifications, setNotifications, addNotification, removeNotification}}>
             {props.children}
         </NotificationsContext.Provider>
     );

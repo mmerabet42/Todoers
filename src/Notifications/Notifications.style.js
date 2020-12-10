@@ -41,4 +41,8 @@ export const NotificationContainer = styled.div`
     :hover {
         transform: scale(1.1);
     }
+
+    :active {
+        transform: scale(0.9);
+    }
 `;

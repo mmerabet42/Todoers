@@ -7,13 +7,13 @@ import {
 } from './Notifications.style';
 
 const Notifications = () => {
-    const { notifications } = React.useContext(NotificationsContext);
+    const { notifications, removeNotification } = React.useContext(NotificationsContext);
 
     return (
         <NotificationsContainer>
             {notifications.map((notification) => {
                 return (
-                    <NotificationContainer key={notification.id} level={notification.level}>
+                    <NotificationContainer key={notification.id} onClick={() => removeNotification(notification.id)} level={notification.level}>
                         <p className="message">{notification.message}</p>
                     </NotificationContainer>
                 );

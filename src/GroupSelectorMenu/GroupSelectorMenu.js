@@ -23,10 +23,10 @@ const GroupSelectorMenu = ({setOpen}) => {
         if (action === "remove") {
             addNotification("valid", `'${group.name}' group has been deleted.`);
             setGroupNames(prev => {
-                const newList = prev.list.filter(value => value.name !== group.name);
-                
+                const newList = prev.list.filter(value => value.id !== group.id);
+
                 return {
-                    current: (prev.current === group.name ? newList[0] : prev.current),
+                    current: (prev.current === group.id ? (newList[0] ? newList[0].id : null) : prev.current),
                     list: newList
                 };
             });
@@ -72,7 +72,7 @@ const GroupSelectorMenu = ({setOpen}) => {
                 <p className="title">Select default group</p>
                 <div className="content">
                     {groupNames.list.map((group, id) => (
-                        <GroupName key={id} isSelected={groupNames.current === group.id}>
+                        <GroupName key={group.id} isSelected={groupNames.current === group.id}>
                             <p onClick={() => handleGroup(group, "change")}>
                                 {group.name}
                             </p>

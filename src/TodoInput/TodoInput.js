@@ -32,21 +32,23 @@ const TodoInput = () => {
     }
 
     const addTodo = async () => {
-        if (inputNameRef.current.value === "") {
+        const formatted = inputNameRef.current.value.trim();
+
+        if (formatted === "") {
             addNotification("error", "Todo name cannot be empty.");
             return;
         }
-        else if (groupNames.current === undefined) {
+        else if (!groupNames.current) {
             addNotification("error", "You must select a default group before adding todos.");
             return;
         }
 
-        addNotification("valid", `Todo '${inputNameRef.current.value}' has been added to group '${getGroupById(groupNames.current).name}'.`);
+        addNotification("valid", `Todo '${formatted}' has been added to group '${getGroupById(groupNames.current).name}'.`);
         await setTodoList(prev => [{
             group: groupNames.current,
             connectedGroup: null,
             id: uuidv4(),
-            details: inputNameRef.current.value,
+            details: formatted,
             done: false,
             creationDate: getDate()
         }, ...prev]);

@@ -42,8 +42,7 @@ const TodoMenu = ({todo, setOpenMenu}) => {
         <MenuContainer>
             <MenuHeader>
                 <div className="names">
-                    <p className="groupName">{getGroupById(todo.group).name}</p>
-                    <p className="details">/{todo.details}</p>
+                    <p className="details">Todo settings</p>
                 </div>
                 <button className="closeButton" onClick={() => setOpenMenu(false)}>✖</button>
             </MenuHeader>

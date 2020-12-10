@@ -15,11 +15,11 @@ const TodoList = () => {
 
     return (
         <TodosContainer>
-            {groupNames.list.length ? groupNames.list.map((group, id) => (
-                <TodoGroup key={id} isCurrent={groupNames.current === group.id} group={group} list={todoList.filter(value => value.group === group.id)} />
+            {groupNames.list.length ? groupNames.list.map((group) => (
+                <TodoGroup key={group.id} isCurrent={groupNames.current === group.id} group={group} list={todoList.filter(value => value.group === group.id)} />
             )) : <NoTodos><p>There are no todos yet.</p></NoTodos>}
         </TodosContainer>   
     );
-}   
+}
 
 export default TodoList;

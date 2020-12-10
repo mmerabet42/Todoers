@@ -1,13 +1,16 @@
 import React from 'react';
 
-import { OutsideBlock } from './ShadowMask.style';
+import {
+    OnTopOfEverything,
+    OutsideBlock
+} from './ShadowMask.style';
 
 const ShadowMask = (props) => {
     return (
-        <>
+        <OnTopOfEverything>
             <OutsideBlock onClick={props.onClick} />
             {props.children}
-        </>
+        </OnTopOfEverything>
     )
 }
 

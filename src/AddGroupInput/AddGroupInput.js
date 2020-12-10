@@ -15,20 +15,22 @@ const AddGroupInput = () => {
     const inputRef = React.useRef();
 
     const addGroup = () => {
-        if (inputRef.current.value === "") {
+        const formatted = inputRef.current.value.trim();
+
+        if (formatted === "") {
             addNotification("error", "Group name cannot be empty.");
             return;
         }
-        else if (groupNames.list.find(value => value.name === inputRef.current.value)) {
-            addNotification("error", `Group '${inputRef.current.value}' already exists.`);
+        else if (groupNames.list.find(value => value.name === formatted)) {
+            addNotification("error", `Group '${formatted}' already exists.`);
             return;
         }
 
         const value = {
-            name: inputRef.current.value,
+            name: formatted,
             id: uuidv4()
         };
-        addNotification("valid", `Group '${value}' has been added.`);
+        addNotification("valid", `Group '${value.name}' has been added.`);
         setGroupNames(prev => {
             const newList = [...prev.list, value];
             const newCurrent = (prev.list.length ? prev.current : value.id);

@@ -3,30 +3,37 @@ import React from 'react';
 import {
     GroupTitle,
     TitleContainer,
-    Percentage
 } from './TodoGroup.style';
 
 import TodoCard from '../TodoCard/TodoCard';
 import { GroupNamesContext } from '../Contexts/GroupNamesContext';
+import ShadowMask from '../ShadowMask/ShadowMask';
 
 
 const TodoGroup = ({isCurrent, group, list}) => {
+    const { setGroupNames, groupPercentage } = React.useContext(GroupNamesContext);
+
     const [ show, setShow ] = React.useState(true);
-    const { groupPercentage } = React.useContext(GroupNamesContext);
+    const [ openMenu, setOpenMenu ] = React.useState(false);
 
     return (
-        <div>
-            <TitleContainer onClick={() => setShow(!show)} show={show}>
-                <div className="nameContainer">
+        <>
+            <TitleContainer show={show}>
+                <div className="nameContainer" onClick={() => setOpenMenu(!openMenu)}>
                     <GroupTitle isCurrent={isCurrent}>{group.name}</GroupTitle>
+                </div>
+                <div className="showTodosToggle" onClick={() => setShow(!show)}>
                     <p className="arrowhead">⮟</p>
                 </div>
-                <Percentage>{groupPercentage(group.id)}%</Percentage>
+                <p className="percentage">{groupPercentage(group.id)}%</p>
             </TitleContainer>
             {show && list.map((todo, id) => (
                 <TodoCard key={id} todo={todo}/>
             ))}
-        </div>
+            { openMenu && <ShadowMask onClick={() => setOpenMenu(!openMenu)}>
+
+            </ShadowMask> }
+        </>
     );
 }
 
