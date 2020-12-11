@@ -10,5 +10,11 @@ Before trying anything, you first need to install [nodejs](https://nodejs.org/en
 - Open the Windows PowerShell (you may need to open it with administrator rights).
 - Run ```cd <path to the project>```
 - Run ```npm install```, this command will install all the necessary dependencies for the project to work.
-- When the install is done, you run ```npm run start```, this will finally run the project, your default web browser should open [http://localhost:3000](http://localhost:3000) automatically, if it doesn't open it yourself.
-- You should now see the project's face.
+- When the install is done, you finally run ```npm run start```, this will run the project, your default web browser should open [http://localhost:3000](http://localhost:3000) automatically, if it doesn't, open it yourself.
+- You should see now the project's face.
+
+## Features
+
+This is a basic todo app, so dont expect crazy features.
+
+Todos, are added to groups. Groups helps you organize your todos. But also give more steps and details for one todo, by linking it to a group.
