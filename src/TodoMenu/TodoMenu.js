@@ -8,14 +8,15 @@ import {
     MenuHeader,
     MenuBody,
     TodoSettings,
-    LinkCheckbox
+    LinkCheckbox,
+    StyledButton
 } from './TodoMenu.style';
 
 const TodoMenu = ({todo, setOpenMenu}) => {
     const [ linkCheck, setLinkCheck ] = React.useState(todo.connectedGroup !== null);
 
-    const { setTodoList } = React.useContext(TodosContext);
-    const { groupNames, getGroupById } = React.useContext(GroupNamesContext);
+    const { todoList, setTodoList } = React.useContext(TodosContext);
+    const { groupNames } = React.useContext(GroupNamesContext);
     const { addNotification } = React.useContext(NotificationsContext);
 
     const nameRef = React.useRef();
@@ -23,7 +24,8 @@ const TodoMenu = ({todo, setOpenMenu}) => {
     const linkGroupRef = React.useRef();
 
     const saveChanges = () => {
-        const newName = nameRef.current.value === "" ? todo.details : nameRef.current.value;
+        const formatted = nameRef.current.value.trim();
+        const newName = formatted === "" ? todo.details : formatted;
 
         addNotification("valid", `Changes made to '${newName}' has been saved.`);
         setTodoList(prev => {
@@ -70,7 +72,7 @@ const TodoMenu = ({todo, setOpenMenu}) => {
                         </div>
                     </div>
                 </TodoSettings>
-                <button className="saveButton" onClick={saveChanges}>Save changes</button>
+                <StyledButton margin="20px" color="#539BDF" onClick={saveChanges}>Save changes</StyledButton>
             </MenuBody>
         </MenuContainer>
     );

@@ -8,10 +8,10 @@ import {
 import TodoCard from '../TodoCard/TodoCard';
 import { GroupNamesContext } from '../Contexts/GroupNamesContext';
 import ShadowMask from '../ShadowMask/ShadowMask';
-
+import GroupMenu from '../GroupMenu/GroupMenu';
 
 const TodoGroup = ({isCurrent, group, list}) => {
-    const { setGroupNames, groupPercentage } = React.useContext(GroupNamesContext);
+    const { groupPercentage } = React.useContext(GroupNamesContext);
 
     const [ show, setShow ] = React.useState(true);
     const [ openMenu, setOpenMenu ] = React.useState(false);
@@ -31,7 +31,7 @@ const TodoGroup = ({isCurrent, group, list}) => {
                 <TodoCard key={id} todo={todo}/>
             ))}
             { openMenu && <ShadowMask onClick={() => setOpenMenu(!openMenu)}>
-
+                <GroupMenu setOpenMenu={setOpenMenu} group={group} />
             </ShadowMask> }
         </>
     );

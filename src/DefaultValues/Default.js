@@ -3,7 +3,8 @@ import { getDate } from '../Utils/getDate';
 
 const exampleGroup = {
     name: "Example",
-    id: uuidv4()
+    id: uuidv4(),
+    description: "An example group."
 };
 
 export const groupContext = {
@@ -16,7 +17,7 @@ export const todoContext = [{
     connectedGroup: null,
     id: uuidv4(),
     details: "Todo Example",
-    description: "",
+    description: "An example todo",
     done: false,
     creationDate: getDate()
 }];

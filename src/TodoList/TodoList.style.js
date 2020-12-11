@@ -13,6 +13,7 @@ export const TodosContainer = styled.div`
     }
     ::-webkit-scrollbar-thumb {
         background-color: gray;
+        border-radius: 10px;
     }
 `;
 

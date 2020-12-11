@@ -38,6 +38,7 @@ export const MenuContainer = styled.div`
     }
     .content::-webkit-scrollbar-thumb {
         background-color: white;
+        border-radius: 10px;
     }
 
     .addInput {
