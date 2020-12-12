@@ -6,7 +6,7 @@ import {
 } from './TodoGroup.style';
 
 import TodoCard from '../TodoCard/TodoCard';
-import { GroupNamesContext } from '../Contexts/GroupNamesContext';
+import { GroupNamesContext } from '../../Contexts/GroupNamesContext';
 import ShadowMask from '../ShadowMask/ShadowMask';
 import GroupMenu from '../GroupMenu/GroupMenu';
 

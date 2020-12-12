@@ -1,5 +1,5 @@
 import React from 'react'
-import { NotificationsContext } from '../Contexts/NotificationsContext';
+import { NotificationsContext } from '../../Contexts/NotificationsContext';
 
 import {
     NotificationsContainer,

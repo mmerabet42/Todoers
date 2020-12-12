@@ -1,7 +1,9 @@
 import React from 'react';
-import { NotificationsContext } from '../Contexts/NotificationsContext';
 
-import { TodosContext } from '../Contexts/TodoContext';
+import { NotificationsContext } from '../../Contexts/NotificationsContext';
+import { TodosContext } from '../../Contexts/TodoContext';
+import { GroupNamesContext } from '../../Contexts/GroupNamesContext';
+
 import TodoMenu from '../TodoMenu/TodoMenu';
 
 import {
@@ -12,7 +14,6 @@ import {
     InfoContainer,
 } from './TodoCard.style';
 import ShadowMask from '../ShadowMask/ShadowMask';
-import { GroupNamesContext } from '../Contexts/GroupNamesContext';
 
 const TodoCard = ({todo}) => {
     const { todoList, setTodoList } = React.useContext(TodosContext);
@@ -24,7 +25,7 @@ const TodoCard = ({todo}) => {
         addNotification("valid", `Todo '${todo.details}' has been deleted.`);
         setTodoList(prev => prev.filter(value => value.id !== todo.id));
     }
-
+    
     const handleCheck = () => {
         const newList = [...todoList];
         const todoCopy = newList.find(value => value.id === todo.id);
@@ -34,6 +35,11 @@ const TodoCard = ({todo}) => {
     }
 
     const group = getGroupById(todo.connectedGroup);
+
+    // if (plannedAction.name === "open-todo-menu" && plannedAction.data.id === todo.id) {
+    //     setOpenMenu(true);
+    //     setPlannedAction(null);
+    // }
 
     return (
         <>

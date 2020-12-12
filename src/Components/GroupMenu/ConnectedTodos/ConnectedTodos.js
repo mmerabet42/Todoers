@@ -1,6 +1,6 @@
 import React from 'react';
-import { GroupNamesContext } from '../../Contexts/GroupNamesContext';
-import { TodosContext } from '../../Contexts/TodoContext';
+import { GroupNamesContext } from '../../../Contexts/GroupNamesContext';
+import { TodosContext } from '../../../Contexts/TodoContext';
 
 import {
     ListContainer,

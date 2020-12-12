@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
-import { TodosContext } from '../Contexts/TodoContext';
-import { GroupNamesContext } from '../Contexts/GroupNamesContext';
+
+import { TodosContext } from '../../Contexts/TodoContext';
+import { GroupNamesContext } from '../../Contexts/GroupNamesContext';
 
 import TodoGroup from '../TodoGroup/TodoGroup';
 

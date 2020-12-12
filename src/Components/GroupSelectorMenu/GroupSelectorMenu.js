@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {GroupNamesContext} from '../Contexts/GroupNamesContext';
+import {GroupNamesContext} from '../../Contexts/GroupNamesContext';
 import AddGroupInput from '../AddGroupInput/AddGroupInput';
 
 import {
@@ -11,26 +11,16 @@ import {
     ButtonContainer,
     MoveButton
 } from './GroupSelectorMenu.style';
-import { NotificationsContext } from '../Contexts/NotificationsContext';
-import { TodosContext } from '../Contexts/TodoContext';
+import { NotificationsContext } from '../../Contexts/NotificationsContext';
 
 const GroupSelectorMenu = ({setOpen}) => {
-    const { groupNames, setGroupNames } = React.useContext(GroupNamesContext);
-    const { setTodoList } = React.useContext(TodosContext);
+    const { groupNames, setGroupNames, deleteGroupById } = React.useContext(GroupNamesContext);
     const { addNotification } = React.useContext(NotificationsContext);
 
-    const handleGroup = (group, action) => {
+    const handleGroup = async (group, action) => {
         if (action === "remove") {
             addNotification("valid", `'${group.name}' group has been deleted.`);
-            setGroupNames(prev => {
-                const newList = prev.list.filter(value => value.id !== group.id);
-
-                return {
-                    current: (prev.current === group.id ? (newList[0] ? newList[0].id : null) : prev.current),
-                    list: newList
-                };
-            });
-            setTodoList(prev => prev.filter(value => value.group !== group.id));
+            deleteGroupById(group.id);
             return;
         }
 

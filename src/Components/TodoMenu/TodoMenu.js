@@ -1,7 +1,7 @@
 import React from 'react';
-import { GroupNamesContext } from '../Contexts/GroupNamesContext';
-import { NotificationsContext } from '../Contexts/NotificationsContext';
-import { TodosContext } from '../Contexts/TodoContext';
+import { GroupNamesContext } from '../../Contexts/GroupNamesContext';
+import { NotificationsContext } from '../../Contexts/NotificationsContext';
+import { TodosContext } from '../../Contexts/TodoContext';
 
 import {
     MenuContainer,
@@ -40,6 +40,20 @@ const TodoMenu = ({todo, setOpenMenu}) => {
         });
     }
 
+    const deleteTodo = () => {
+        setOpenMenu(false);
+        addNotification("valid", `Todo '${todo.details}' has been deleted.`);
+        setTodoList(prev => prev.filter(value => value.id !== todo.id));
+    }
+
+    const handleCheck = () => {
+        const newList = [...todoList];
+        const todoCopy = newList.find(value => value.id === todo.id);
+        todoCopy.done = !todoCopy.done;
+        addNotification("valid", `Todo '${todo.details}' done status has changed to '${todoCopy.done}'.`);
+        setTodoList(newList);
+    }
+
     return (
         <MenuContainer>
             <MenuHeader>
@@ -70,6 +84,12 @@ const TodoMenu = ({todo, setOpenMenu}) => {
                                 })}
                             </select>
                         </div>
+                    </div>
+                    <div className="setting">
+                        <StyledButton color="#539BDF" onClick={handleCheck}>{!todo.done ? "Check" : "Uncheck"} todo</StyledButton>
+                    </div>
+                    <div className="setting">
+                        <StyledButton color="#FF5A5F" onClick={deleteTodo}>Delete todo</StyledButton>
                     </div>
                 </TodoSettings>
                 <StyledButton margin="20px" color="#539BDF" onClick={saveChanges}>Save changes</StyledButton>

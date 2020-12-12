@@ -1,9 +1,10 @@
 import React from 'react';
-import {v4 as uuidv4} from 'uuid';
-import {getDate} from '../Utils/getDate';
+import { v4 as uuidv4 } from 'uuid';
+import { getDate } from '../../Utils/getDate';
 
-import {TodosContext} from '../Contexts/TodoContext';
-import {GroupNamesContext} from '../Contexts/GroupNamesContext';
+import { TodosContext } from '../../Contexts/TodoContext';
+import { GroupNamesContext } from '../../Contexts/GroupNamesContext';
+import { NotificationsContext } from '../../Contexts/NotificationsContext';
 
 import { 
     InputContainer,
@@ -14,7 +15,6 @@ import {
 import ShadowMask from '../ShadowMask/ShadowMask';
 
 import GroupSelectorMenu from '../GroupSelectorMenu/GroupSelectorMenu';
-import { NotificationsContext } from '../Contexts/NotificationsContext';
 import { CSSTransition } from 'react-css-transition';
 
 const TodoInput = () => {
