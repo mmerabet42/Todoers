@@ -39,12 +39,14 @@ export const GroupNamesProvider = props => {
             current: (prev.current === groupId ? (prev.list.length ? prev.list[0].id : null) : prev.current),
             list: prev.list.filter(value => value.id !== groupId)
         }));
-        await setTodoList(prev => {
-            const copyPrev = prev.filter(value => value.connectedGroup === groupId);
-            copyPrev.forEach(value => value.connectedGroup = null);
+        setTodoList(prev => {
+            const copyPrev = prev.filter(value => value.group !== groupId);
+            copyPrev.forEach(value => {
+                if (value.connectedGroup == groupId)
+                    value.connectedGroup = null
+            });
             return copyPrev;
-        })
-        setTodoList(prev => prev.filter(value => value.group !== groupId));
+        });
     }
 
     const value = {
