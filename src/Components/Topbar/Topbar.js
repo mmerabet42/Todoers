@@ -9,7 +9,7 @@ const Topbar = () => {
     return (
         <TitleContainer>
             <TodoTitle onClick={() => setShowGame(!showGame)}>TODO</TodoTitle>
-            { showGame && <Game /> }
+            {/* { showGame && <Game /> } */}
         </TitleContainer>
     );
 }

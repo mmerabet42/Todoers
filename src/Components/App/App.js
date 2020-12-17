@@ -4,6 +4,7 @@ import Topbar from '../Topbar/Topbar';
 import TodoInput from '../TodoInput/TodoInput';
 import TodoList from '../TodoList/TodoList';
 
+import { ProjectProvider } from '../../Contexts/ProjectContext';
 import { TodosProvider } from '../../Contexts/TodoContext';
 import { GroupNamesProvider } from '../../Contexts/GroupNamesContext';
 import { NotificationsProvider } from '../../Contexts/NotificationsContext';
@@ -20,15 +21,17 @@ const App = () => {
     <NotificationsProvider>
       <BodyContainer>
         <Topbar />
-        <TodosProvider>
-          <GroupNamesProvider>
-            <TodoBody>
-              <TodoInput />
-              <TodoList />
-            </TodoBody>
-          </GroupNamesProvider>
-          <Notifications />
-        </TodosProvider>
+        <ProjectProvider>
+          <TodosProvider>
+            <GroupNamesProvider>
+              <TodoBody>
+                <TodoInput />
+                <TodoList />
+              </TodoBody>
+            </GroupNamesProvider>
+          </TodosProvider>
+        </ProjectProvider>
+        <Notifications />
       </BodyContainer>
     </NotificationsProvider>
   );

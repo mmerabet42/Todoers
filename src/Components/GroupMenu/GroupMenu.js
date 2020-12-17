@@ -22,7 +22,7 @@ const GroupMenu = ({group, setOpenMenu}) => {
 
     const saveChanges = () => {
         const formatted = nameRef.current.value.trim();
-        if (groupNames.list.find(value => value.name === formatted)) {
+        if (groupNames.list.find(value => value.name === formatted && value.id !== group.id)) {
             addNotification("error", "Group name already taken.");
             return;
         }

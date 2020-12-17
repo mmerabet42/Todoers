@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { TodosContext } from './TodoContext';
+import { ProjectContext } from './ProjectContext';
 
 import { groupContext } from '../DefaultValues/Default';
 
@@ -9,6 +10,7 @@ export const GroupNamesContext = React.createContext();
 export const GroupNamesProvider = props => {
     const [ groupNames, setGroupNames,  ] = React.useState(groupContext);
     const { todoList, setTodoList } = React.useContext(TodosContext);
+    const { projects, setProjects } = React.useContext(ProjectContext);
 
     const groupPercentage = (groupId) => {
         const list = todoList.filter(value => value.group === groupId);
@@ -21,6 +23,18 @@ export const GroupNamesProvider = props => {
     }
 
     const deleteGroupById = async (groupId) => {
+        // const group = getGroupById(groupId);
+
+        // setProjects(prev => {
+        //     const copyList = [...prev.list];
+        //     const currentProject = copyList.find(value => value.id === group.projectId);
+
+        //     if (currentProject.current === groupId) {
+        //         const groupList = groupNames.filter(value => value.projectId === group.projectId);
+        //         currentProject.current = (groupList.length ? groupList[0].id : null);
+        //     }
+        //     return copyList;
+        // });
         setGroupNames(prev => ({
             current: (prev.current === groupId ? (prev.list.length ? prev.list[0].id : null) : prev.current),
             list: prev.list.filter(value => value.id !== groupId)

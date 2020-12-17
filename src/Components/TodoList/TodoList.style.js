@@ -11,6 +11,7 @@ export const TodosContainer = styled.div`
     ::-webkit-scrollbar {
         width: 5px;
     }
+
     ::-webkit-scrollbar-thumb {
         background-color: gray;
         border-radius: 10px;
