@@ -6,9 +6,14 @@ export const ProjectContext = React.createContext();
 export const ProjectProvider = props => {
     const [ projects, setProjects ] = React.useState(projectContext);
 
+    const getProjectById = (projectId) => {
+        return projects.list.find(value => value.id === projectId);
+    }
+
     const value = {
         projects,
-        setProjects
+        setProjects,
+        getProjectById
     };
 
     return (

@@ -18,14 +18,11 @@ const exampleProject = {
 }
 
 export const projectContext = {
-    current: null,
+    current: exampleProject.id,
     list: [exampleProject]
 };
 
-export const groupContext = {
-    current: exampleGroup.id,
-    list: [exampleGroup]
-};
+export const groupContext = [exampleGroup];
 
 export const todoContext = [{
     group: exampleGroup.id,

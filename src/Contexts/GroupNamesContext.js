@@ -8,7 +8,7 @@ import { groupContext } from '../DefaultValues/Default';
 export const GroupNamesContext = React.createContext();
 
 export const GroupNamesProvider = props => {
-    const [ groupNames, setGroupNames,  ] = React.useState(groupContext);
+    const [ groupNames, setGroupNames ] = React.useState(groupContext);
     const { todoList, setTodoList } = React.useContext(TodosContext);
     const { projects, setProjects } = React.useContext(ProjectContext);
 
@@ -18,31 +18,32 @@ export const GroupNamesProvider = props => {
         return ((list.filter(value => value.done && !value.connectedGroup).length / (list.length ? list.length : 1)) * 100).toFixed(1);
     }
 
-    const getGroupById = (groupId) => {
-        return groupNames.list.find(value => value.id === groupId);
+    const getGroupById = (groupId, projectId) => {
+        if (!projectId)
+            projectId = projects.current;
+
+        return groupNames.find(value => value.id === groupId && value.projectId === projectId);
     }
 
-    const deleteGroupById = async (groupId) => {
-        // const group = getGroupById(groupId);
-
-        // setProjects(prev => {
-        //     const copyList = [...prev.list];
-        //     const currentProject = copyList.find(value => value.id === group.projectId);
-
-        //     if (currentProject.current === groupId) {
-        //         const groupList = groupNames.filter(value => value.projectId === group.projectId);
-        //         currentProject.current = (groupList.length ? groupList[0].id : null);
-        //     }
-        //     return copyList;
-        // });
-        setGroupNames(prev => ({
-            current: (prev.current === groupId ? (prev.list.length ? prev.list[0].id : null) : prev.current),
-            list: prev.list.filter(value => value.id !== groupId)
-        }));
+    const deleteGroup = async (group) => {
+        setProjects(prev => {
+            const copyList = [...prev.list];
+            const currentProject = copyList.find(value => value.id === group.projectId);
+            
+            if (currentProject.current === group.id) {
+                const groupList = groupNames.filter(value => value.projectId === currentProject.id && value.id !== group.id);
+                currentProject.current = (groupList.length ? groupList[0].id : null);
+            }
+            return {
+                current: prev.current,
+                list: copyList
+            };
+        });
+        setGroupNames(prev => prev.filter(value => value.id !== group.id));
         setTodoList(prev => {
-            const copyPrev = prev.filter(value => value.group !== groupId);
+            const copyPrev = prev.filter(value => value.group !== group.id);
             copyPrev.forEach(value => {
-                if (value.connectedGroup == groupId)
+                if (value.connectedGroup === group.id)
                     value.connectedGroup = null
             });
             return copyPrev;
@@ -54,7 +55,7 @@ export const GroupNamesProvider = props => {
         setGroupNames,
         groupPercentage,
         getGroupById,
-        deleteGroupById
+        deleteGroup
     }
 
     return (

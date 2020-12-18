@@ -1,6 +1,9 @@
 import React from 'react';
 
 import {GroupNamesContext} from '../../Contexts/GroupNamesContext';
+import { NotificationsContext } from '../../Contexts/NotificationsContext';
+import { ProjectContext } from '../../Contexts/ProjectContext';
+
 import AddGroupInput from '../AddGroupInput/AddGroupInput';
 
 import {
@@ -11,48 +14,60 @@ import {
     ButtonContainer,
     MoveButton
 } from './GroupSelectorMenu.style';
-import { NotificationsContext } from '../../Contexts/NotificationsContext';
 
 const GroupSelectorMenu = ({setOpen}) => {
-    const { groupNames, setGroupNames, deleteGroupById } = React.useContext(GroupNamesContext);
+    const { groupNames, setGroupNames, deleteGroup } = React.useContext(GroupNamesContext);
+    const { projects, setProjects, getProjectById } = React.useContext(ProjectContext);
     const { addNotification } = React.useContext(NotificationsContext);
 
     const handleGroup = async (group, action) => {
         if (action === "remove") {
             addNotification("valid", `'${group.name}' group has been deleted.`);
-            deleteGroupById(group.id);
+            deleteGroup(group);
             return;
         }
 
-        addNotification("valid", `'${group.name}' is now the default group`);
-        setGroupNames({
-            current: group.id,
-            list: groupNames.list
+        setProjects(prev => {
+            const copyProjects = [...prev.list];
+            const project = copyProjects.find(valueElement => valueElement.id === projects.current);
+            project.current = group.id;
+            return {
+                current: prev.current,
+                list: copyProjects
+            };
+
         });
+        addNotification("valid", `'${group.name}' is now the default group`);
+        
         setOpen(false);
     }
 
     const swapGroup = (id, direction) => {
-        if ((id === 0 && direction === "up") || (id === groupNames.list.length - 1 && direction === "down"))
-            return;
-        
-        addNotification("valid", `Group '${groupNames.list[id].name}' has moved ${direction}.`);
         setGroupNames(prev => {
-            const listCopy = [...prev.list];
-
-            const tmp = listCopy[id];
+            const listCopy = [...prev];
+            const groupIndex = listCopy.findIndex(valueElement => valueElement.id === id);
+            let targetIndex = 0;
+            
             if (direction === "up") {
-                listCopy[id] = listCopy[id - 1];
-                listCopy[id - 1] = tmp;
+                if ((targetIndex = groupIndex) === 0)
+                    return listCopy;
+                while (--targetIndex >= 0)
+                    if (listCopy[targetIndex].projectId === projects.current)
+                        break;
             }
             else if (direction === "down") {
-                listCopy[id] = listCopy[id + 1];
-                listCopy[id + 1] = tmp;
+                if ((targetIndex = groupIndex) === groupNames.filter(valueElement => valueElement.projectId === projects.current).length - 1)
+                    return listCopy;
+                while (++targetIndex < groupNames.length)
+                    if (listCopy[targetIndex].projectId === projects.current)
+                        break;
             }
-            return {
-                current: prev.current,
-                list: listCopy
-            };
+            const tmp = listCopy[groupIndex];
+            listCopy[groupIndex] = listCopy[targetIndex];
+            listCopy[targetIndex] = tmp;
+
+            addNotification("valid", `Group '${tmp.name}' has moved ${direction}.`);
+            return listCopy;
         });
     }
 
@@ -61,14 +76,14 @@ const GroupSelectorMenu = ({setOpen}) => {
             <MenuContainer>
                 <p className="title">Select default group</p>
                 <div className="content">
-                    {groupNames.list.map((group, id) => (
-                        <GroupName key={group.id} isSelected={groupNames.current === group.id}>
+                    {groupNames.filter(valueElement => valueElement.projectId === projects.current).map((group) => (
+                        <GroupName key={group.id} isSelected={getProjectById(projects.current).current === group.id}>
                             <p onClick={() => handleGroup(group, "change")}>
                                 {group.name}
                             </p>
                             <ButtonContainer>
-                                <MoveButton className="moveButton" onClick={() => swapGroup(id, "up")}>🠉</MoveButton>
-                                <MoveButton className="moveButton" onClick={() => swapGroup(id, "down")}>🠋</MoveButton>
+                                <MoveButton className="moveButton" onClick={() => swapGroup(group.id, "up")}>🠉</MoveButton>
+                                <MoveButton className="moveButton" onClick={() => swapGroup(group.id, "down")}>🠋</MoveButton>
                                 <RemoveButton onClick={() => handleGroup(group, "remove")}>X</RemoveButton>
                             </ButtonContainer>
                         </GroupName>

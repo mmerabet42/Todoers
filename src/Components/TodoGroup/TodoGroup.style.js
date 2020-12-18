@@ -15,7 +15,8 @@ export const TitleContainer = styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
     margin-bottom: 10px;
 
     transition: all 0.1s linear;

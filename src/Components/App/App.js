@@ -4,7 +4,7 @@ import Topbar from '../Topbar/Topbar';
 import TodoInput from '../TodoInput/TodoInput';
 import TodoList from '../TodoList/TodoList';
 
-import { ProjectProvider } from '../../Contexts/ProjectContext';
+import { ProjectContext, ProjectProvider } from '../../Contexts/ProjectContext';
 import { TodosProvider } from '../../Contexts/TodoContext';
 import { GroupNamesProvider } from '../../Contexts/GroupNamesContext';
 import { NotificationsProvider } from '../../Contexts/NotificationsContext';
@@ -22,18 +22,31 @@ const App = () => {
       <BodyContainer>
         <Topbar />
         <ProjectProvider>
-          <TodosProvider>
-            <GroupNamesProvider>
-              <TodoBody>
-                <TodoInput />
-                <TodoList />
-              </TodoBody>
-            </GroupNamesProvider>
-          </TodosProvider>
+          <InnerApp />
         </ProjectProvider>
         <Notifications />
       </BodyContainer>
     </NotificationsProvider>
+  );
+}
+
+const InnerApp = () => {
+  const { projects } = React.useContext(ProjectContext);
+
+  if (projects.current)
+    return (
+      <TodosProvider>
+        <GroupNamesProvider>
+          <TodoBody>
+            <TodoInput />
+            <TodoList />
+          </TodoBody>
+        </GroupNamesProvider>
+      </TodosProvider>
+    );
+
+  return (
+    <p>No projects lol</p>
   );
 }
 

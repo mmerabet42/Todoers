@@ -16,9 +16,11 @@ import ShadowMask from '../ShadowMask/ShadowMask';
 
 import GroupSelectorMenu from '../GroupSelectorMenu/GroupSelectorMenu';
 import { CSSTransition } from 'react-css-transition';
+import { ProjectContext } from '../../Contexts/ProjectContext';
 
 const TodoInput = () => {
     const { setTodoList } = React.useContext(TodosContext);
+    const { projects, getProjectById } = React.useContext(ProjectContext);
     const { groupNames, getGroupById } = React.useContext(GroupNamesContext);
     const { addNotification } = React.useContext(NotificationsContext);
 
@@ -31,28 +33,31 @@ const TodoInput = () => {
             addTodo();
     }
 
-    const addTodo = async () => {
+    const addTodo = () => {
         const formatted = inputNameRef.current.value.trim();
+        const project = getProjectById(projects.current);
+        inputNameRef.current.value = "";
 
         if (formatted === "") {
             addNotification("error", "Todo name cannot be empty.");
             return;
         }
-        else if (!groupNames.current) {
+        else if (project.current === null) {
             addNotification("error", "You must select a default group before adding todos.");
             return;
         }
-
-        addNotification("valid", `Todo '${formatted}' has been added to group '${getGroupById(groupNames.current).name}'.`);
-        await setTodoList(prev => [{
-            group: groupNames.current,
+        
+        const newTodo = {
+            group: project.current,
             connectedGroup: null,
             id: uuidv4(),
             details: formatted,
             done: false,
             creationDate: getDate()
-        }, ...prev]);
-        inputNameRef.current.value = "";
+        };
+        
+        setTodoList(prev => [newTodo, ...prev]);
+        addNotification("valid", `Todo '${formatted}' has been added to group '${getGroupById(project.current).name}'.`);
     }
 
     return (

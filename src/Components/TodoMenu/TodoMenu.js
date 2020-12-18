@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { GroupNamesContext } from '../../Contexts/GroupNamesContext';
 import { NotificationsContext } from '../../Contexts/NotificationsContext';
+import { ProjectContext } from '../../Contexts/ProjectContext';
 import { TodosContext } from '../../Contexts/TodoContext';
 
 import {
@@ -17,6 +19,7 @@ const TodoMenu = ({todo, setOpenMenu}) => {
 
     const { todoList, setTodoList } = React.useContext(TodosContext);
     const { groupNames } = React.useContext(GroupNamesContext);
+    const { projects } = React.useContext(ProjectContext);
     const { addNotification } = React.useContext(NotificationsContext);
 
     const nameRef = React.useRef();
@@ -26,8 +29,7 @@ const TodoMenu = ({todo, setOpenMenu}) => {
     const saveChanges = () => {
         const formatted = nameRef.current.value.trim();
         const newName = formatted === "" ? todo.details : formatted;
-
-        addNotification("valid", `Changes made to '${newName}' has been saved.`);
+ 
         setTodoList(prev => {
             const foundTodo = prev.find(value => value.id === todo.id);
             foundTodo.details = newName;
@@ -36,6 +38,7 @@ const TodoMenu = ({todo, setOpenMenu}) => {
                 foundTodo.connectedGroup = linkGroupRef.current.value;
             else
                 foundTodo.connectedGroup = null;
+            addNotification("valid", `Changes made to '${newName}' has been saved.`);
             return prev;
         });
     }
@@ -77,7 +80,7 @@ const TodoMenu = ({todo, setOpenMenu}) => {
                         <div className="linkGroup">
                             <LinkCheckbox checked={linkCheck} onClick={() => setLinkCheck(!linkCheck)}><p>✓</p></LinkCheckbox>
                             <select ref={linkGroupRef} value={todo.connectedGroup} disabled={!linkCheck}>
-                                {groupNames.list.map((group, id) => {
+                                {groupNames.filter(valueElement => valueElement.projectId === projects.current).map((group, id) => {
                                     if (todo.group === group.id)
                                         return null;
                                     return <option key={id} value={group.id}>{group.name}</option>

@@ -36,11 +36,6 @@ const TodoCard = ({todo}) => {
 
     const group = getGroupById(todo.connectedGroup);
 
-    // if (plannedAction.name === "open-todo-menu" && plannedAction.data.id === todo.id) {
-    //     setOpenMenu(true);
-    //     setPlannedAction(null);
-    // }
-
     return (
         <>
             <CardContainer>
