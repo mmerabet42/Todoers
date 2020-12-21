@@ -12,17 +12,21 @@ export const ProjectContainer = styled.div`
 
     margin-bottom: 20px;
 
-    .project-title {
+    .project-div {
+        cursor: pointer;
         align-self: center;
-
-        background-color: #539BDF;
-        color: white;
+        display: flex;
+        flex-direction: row;
 
         padding: 0px;
         padding-bottom: 20px;
         padding-left: 40px;
         padding-right: 40px;
         margin: 0px;
+
+        background-color: #539BDF;
+        color: white;
+
 
         border-radius: 20px;
         border-top-left-radius: 0px;
@@ -32,6 +36,25 @@ export const ProjectContainer = styled.div`
 
         font-size: 20px;
         font-weight: bold;
+
+        transition: all 0.1s linear;
+
+        :hover {
+            transform: translateY(-3px);
+        }
+
+        :active {
+            transform: translateY(-10px);
+        }
+    }
+
+    .back-arrow, .project-title {
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .back-arrow {
+        margin-right: 10px;
     }
 `;
 

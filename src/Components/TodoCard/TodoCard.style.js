@@ -87,7 +87,6 @@ export const RemoveButton = styled.button`
     }
 `;
 
-
 export const DoneCheckbox = styled.button`
     display: flex;
     justify-content: center;

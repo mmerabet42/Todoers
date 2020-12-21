@@ -7,7 +7,8 @@ const exampleGroup = {
     name: "Example",
     id: uuidv4(),
     description: "An example group.",
-    projectId: exampleProjectId
+    projectId: exampleProjectId,
+    showTodos: true
 };
 
 const exampleProject = {
@@ -15,11 +16,20 @@ const exampleProject = {
     id: exampleProjectId,
     description: "Project's description.",
     current: exampleGroup.id,
+    creationDate: getDate()
 }
 
 export const projectContext = {
     current: exampleProject.id,
-    list: [exampleProject]
+    list: [
+        exampleProject,
+        {
+            name: "Other One",
+            id: uuidv4(),
+            current: null,
+            creationDate: getDate(),
+        }
+    ]
 };
 
 export const groupContext = [exampleGroup];

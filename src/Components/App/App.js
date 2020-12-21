@@ -3,10 +3,11 @@ import React from 'react';
 import Topbar from '../Topbar/Topbar';
 import TodoInput from '../TodoInput/TodoInput';
 import TodoList from '../TodoList/TodoList';
+import ProjectList from '../ProjectsList/ProjectList';
 
 import { ProjectContext, ProjectProvider } from '../../Contexts/ProjectContext';
 import { TodosProvider } from '../../Contexts/TodoContext';
-import { GroupNamesProvider } from '../../Contexts/GroupNamesContext';
+import { GroupNamesContext, GroupNamesProvider } from '../../Contexts/GroupNamesContext';
 import { NotificationsProvider } from '../../Contexts/NotificationsContext';
 
 import {
@@ -22,7 +23,11 @@ const App = () => {
       <BodyContainer>
         <Topbar />
         <ProjectProvider>
-          <InnerApp />
+          <TodosProvider>
+            <GroupNamesProvider>
+              <InnerApp />
+            </GroupNamesProvider>
+          </TodosProvider>
         </ProjectProvider>
         <Notifications />
       </BodyContainer>
@@ -35,18 +40,14 @@ const InnerApp = () => {
 
   if (projects.current)
     return (
-      <TodosProvider>
-        <GroupNamesProvider>
-          <TodoBody>
-            <TodoInput />
-            <TodoList />
-          </TodoBody>
-        </GroupNamesProvider>
-      </TodosProvider>
+      <TodoBody>
+        <TodoInput />
+        <TodoList />
+      </TodoBody>
     );
 
   return (
-    <p>No projects lol</p>
+    <ProjectList />
   );
 }
 

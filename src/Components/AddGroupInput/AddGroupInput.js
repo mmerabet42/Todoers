@@ -27,7 +27,8 @@ const AddGroupInput = () => {
         const value = {
             name: formatted,
             id: uuidv4(),
-            projectId: projects.current
+            projectId: projects.current,
+            showTodos: true
         };
 
         if (groupNames.filter(valueElement => valueElement.projectId === projects.current).length === 0) {

@@ -11,23 +11,32 @@ import ShadowMask from '../ShadowMask/ShadowMask';
 import GroupMenu from '../GroupMenu/GroupMenu';
 
 const TodoGroup = ({isCurrent, group, list}) => {
-    const { groupPercentage } = React.useContext(GroupNamesContext);
+    const { setGroupNames, groupPercentage } = React.useContext(GroupNamesContext);
 
-    const [ show, setShow ] = React.useState(true);
     const [ openMenu, setOpenMenu ] = React.useState(false);
+
+    const showTodos = async () => {
+        await setGroupNames(prev => prev);
+        setGroupNames(prev => {
+            const copyPrev = [...prev];
+            const foundGroup = copyPrev.find(valueElement => valueElement.id === group.id);
+            foundGroup.showTodos = !foundGroup.showTodos;
+            return copyPrev;
+        });
+    }
 
     return (
         <>
-            <TitleContainer show={show}>
+            <TitleContainer show={group.showTodos}>
                 <div className="nameContainer" onClick={() => setOpenMenu(!openMenu)}>
                     <GroupTitle isCurrent={isCurrent}>{group.name}</GroupTitle>
                 </div>
-                <div className="showTodosToggle" onClick={() => setShow(!show)}>
+                <div className="showTodosToggle" onClick={showTodos}>
                     <p className="arrowhead">⮟</p>
                 </div>
                 <p className="percentage">{groupPercentage(group.id)}%</p>
             </TitleContainer>
-            {show && list.map((todo, id) => (
+            {group.showTodos && list.map((todo, id) => (
                 <TodoCard key={id} todo={todo}/>
             ))}
             { openMenu && <ShadowMask onClick={() => setOpenMenu(!openMenu)}>
