@@ -25,7 +25,7 @@ const TodoList = () => {
             list: prev.list
         }));
     }
-    console.log("hehfzefedve");
+    console.log(`hehfzefedve: ${projects.current}`);
 
     return (
         <ProjectContainer>

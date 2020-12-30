@@ -238,11 +238,14 @@ export const NewProjectContainer = styled.div`
         border: 2px #35BECE solid;
     }
 
-    .add-button {
-        cursor: pointer;
-        background-color: #35BECE;
-        color: white;
+    .buttons {
+        display: flex;
+        width: 100%;
+    }
 
+    .buttons button {
+        flex-grow: 1;
+        cursor: pointer;
         padding: 10px;
         margin-bottom: 10px;
 
@@ -250,10 +253,28 @@ export const NewProjectContainer = styled.div`
         font-family: inherit;
         font-weight: bold;
         outline: none;
-        border: 3px #35BECE solid;
         border-radius: 10px;
-
         transition: all 0.1s linear;
+    }
+
+    .delete-button {
+        background-color: #FF5A5F;
+        color: white;
+
+        border: 3px #FF5A5F solid;
+        margin-right: 10px;
+    }
+
+    .delete-button:hover {
+        background-color: transparent;
+        color: #FF5A5F;
+    }
+
+    .add-button {
+        background-color: #35BECE;
+        color: white;
+
+        border: 3px #35BECE solid;
     }
 
     .add-button:hover {

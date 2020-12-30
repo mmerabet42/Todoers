@@ -83,7 +83,8 @@ const NewProjectMenu = ({setOpenMenu}) => {
                 name: nameRef.current.value,
                 description: descriptionRef.current.value,
                 creationDate: getDate(),
-                id: uuidv4()
+                id: uuidv4(),
+                current: null
             }]
         }));
         setOpenMenu(false);
@@ -107,7 +108,9 @@ const NewProjectMenu = ({setOpenMenu}) => {
                             <textarea ref={descriptionRef} className="field" />
                         </div>
                     </div>
-                    <button onClick={addProject} className="add-button">Create project</button>
+                    <div className="buttons">
+                        <button onClick={addProject} className="add-button">Create project</button>
+                    </div>
                 </div>
             </NewProjectContainer>
         </ShadowMask>
@@ -116,7 +119,7 @@ const NewProjectMenu = ({setOpenMenu}) => {
 
 
 const SettingsMenu = ({setOpenMenu, project}) => {
-    const { projects, setProjects } = React.useContext(ProjectContext)
+    const { projects, setProjects, deleteProjectById } = React.useContext(ProjectContext)
     const { addNotification } = React.useContext(NotificationsContext);
 
     const nameRef = React.useRef();
@@ -143,6 +146,12 @@ const SettingsMenu = ({setOpenMenu, project}) => {
         setOpenMenu(null);
     }
 
+    const deleteProject = () => {
+        deleteProjectById(project.id);
+        setOpenMenu(null);
+        addNotification("valid", `Project '${project.name}' has been deleted successfully.`)
+    }
+
     return (
         <ShadowMask onClick={() => setOpenMenu(null)} color={"#D5D5D555"}>
             <NewProjectContainer>
@@ -161,7 +170,10 @@ const SettingsMenu = ({setOpenMenu, project}) => {
                             <textarea ref={descriptionRef} className="field" defaultValue={project.description} />
                         </div>
                     </div>
-                    <button onClick={saveChanges} className="add-button">Save changes</button>
+                    <div className="buttons">
+                        <button onClick={deleteProject} className="delete-button">Delete project</button>
+                        <button onClick={saveChanges} className="add-button">Save changes</button>
+                    </div>
                 </div>
             </NewProjectContainer>
         </ShadowMask>
