@@ -6,7 +6,7 @@ import {
 
 const ShadowMask = (props) => {
     return (
-        <OutsideBlock>
+        <OutsideBlock absolute={props.absolute} color={props.color}>
             <div className="top-everything" onClick={props.onClick} />
             <div className="other-top">
                 {props.children}

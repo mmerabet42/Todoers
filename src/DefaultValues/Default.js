@@ -20,16 +20,8 @@ const exampleProject = {
 }
 
 export const projectContext = {
-    current: exampleProject.id,
-    list: [
-        exampleProject,
-        {
-            name: "Other One",
-            id: uuidv4(),
-            current: null,
-            creationDate: getDate(),
-        }
-    ]
+    current: null,
+    list: [exampleProject]
 };
 
 export const groupContext = [exampleGroup];

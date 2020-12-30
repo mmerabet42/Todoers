@@ -22,9 +22,12 @@ export const NotificationsContainer = styled.div`
     position: fixed;
     left: 50px;
     bottom: 50px;
-    `;
+
+    z-index: 1002;
+`;
 
 export const NotificationContainer = styled.div`
+    cursor: pointer;
     border-radius: 10px; 
     margin: 5px;
     width: 300px;

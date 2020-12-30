@@ -10,10 +10,18 @@ export const ProjectProvider = props => {
         return projects.list.find(value => value.id === projectId);
     }
 
+    const deleteProjectById = (projectId) => {
+        setProjects(prev => ({
+            current: (prev.current === projectId ? null : prev.current),
+            list: prev.list.filter(value => value.id !== projectId)
+        }));
+    }
+
     const value = {
         projects,
         setProjects,
-        getProjectById
+        getProjectById,
+        deleteProjectById
     };
 
     return (

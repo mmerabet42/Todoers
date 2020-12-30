@@ -139,3 +139,130 @@ export const Project = styled.div`
         transform: scale(0.95);
     }
 `;
+
+export const CenterMenu = styled.div`
+`;
+
+export const NewProjectContainer = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    .menu-container {
+        pointer-events: auto;
+        padding: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border-radius: 20px;
+
+        background-color: white;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+
+        width: 70%; 
+        height: 70%;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .header {
+        flex: 0 1 auto;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+
+        font-size: 20px;
+        font-weight: bold; 
+
+        transition: all 0.1s linear;
+    }
+
+    .header:hover {
+        transform: translateY(2px);
+    }
+
+    .header:active {
+        transform: translateY(4px);
+    }
+
+    .header :first-child {
+        margin-right: 20px;
+    }
+
+    .body {
+        flex: 1 1 auto;
+        margin: 10px;
+        font-size: 15px;
+        display: flex;
+        overflow: hidden;
+        overflow-y: scroll;
+        flex-direction: column;
+        align-items: stretch;
+        /* width: 100%; */
+    }
+
+    .body::-webkit-scrollbar {
+        width: 5px;
+    }
+    .body::-webkit-scrollbar-thumb {
+        background-color: gray;
+        border-radius: 10px;
+    }
+
+    .input {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+
+    .input p {
+        margin: 0px;
+    }
+
+    .input .field {
+        resize: none;
+        font-family: inherit;
+        font-size: 20px;
+        padding: 10px;
+
+        outline: none;
+        border-radius: 10px;
+        border: 2px #35BECE solid;
+    }
+
+    .add-button {
+        cursor: pointer;
+        background-color: #35BECE;
+        color: white;
+
+        padding: 10px;
+        margin-bottom: 10px;
+
+        font-size: 30px;
+        font-family: inherit;
+        font-weight: bold;
+        outline: none;
+        border: 3px #35BECE solid;
+        border-radius: 10px;
+
+        transition: all 0.1s linear;
+    }
+
+    .add-button:hover {
+        background-color: transparent;
+        color: #35BECE;
+    }
+
+    .add-button:active {
+        background-color: #35BECE;
+        color: white;
+    }
+`;
