@@ -1,0 +1,9 @@
+--blue-gray: #539bdfff;
+--sizzling-red: #ff5a5fff;
+--maximum-blue-green: #35beceff;
+--charcoal: #435058ff;
+--buff: #f5dd90ff;
+--black-coffee: #37323eff;
+--charcoal-2: #313e50ff;
+--independence: #3a435eff;
+--midnight-green-eagle-green: #073b4cff;
